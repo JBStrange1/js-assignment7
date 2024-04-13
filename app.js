@@ -20,18 +20,17 @@ app.get('/', (_, response) => {
 
 
 // GET /api/todos
-app.get('/api/todos', ( request , response) => {
+app.get('/api/todos', ( _ , response) => {
 	response.json(todos)
 })
 // POST /api/todos
-app.post('/api/todos', (request, response) => {
+app.post('/api/todos', (request, _ ) => {
 	const { item , complete} = request.body
 	todos.push({ id: todos.length + 1, item: item, complete: complete})
-	response.json({ message: 'New Todo added!'})
 })
 
 // PUT /api/todos/:id
-app.put('/api/todos/:id', (request, response) => {
+app.put('/api/todos/:id', (request, _ ) => {
 	const { id } = request.params
 	const task = todos.find(todo => todo.id.toString() === id)
 	task.complete = !task.complete
