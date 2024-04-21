@@ -1,7 +1,7 @@
 
 const express = require('express')
 const app = express()
-
+const apiRoutes = require('./api-routes')
 const port = process.env.PORT || 3000
 
 app.use(express.json())
@@ -17,26 +17,9 @@ app.get('/', (_, response) => {
 	response.sendFile('index.html', { root })
 })
 
-
-
-// GET /api/todos
-app.get('/api/todos', ( _ , response) => {
-	response.json(todos)
-})
-// POST /api/todos
-app.post('/api/todos', (request, _ ) => {
-	const { item , complete} = request.body
-	todos.push({ id: todos.length + 1, item: item, complete: complete})
-})
-
-// PUT /api/todos/:id
-app.put('/api/todos/:id', (request, _ ) => {
-	const { id } = request.params
-	const task = todos.find(todo => todo.id.toString() === id)
-	task.complete = !task.complete
-})
-
+app.use('/api/todos', apiRoutes)
 
 
 const message = `Server running: http://localhost:${port}`
 app.listen(port, () => console.log(message))
+
